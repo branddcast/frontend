@@ -1,0 +1,22 @@
+<h2>Movie {{movie._id}}</h2>
+<p>
+  <img *ngIf="movie.poster" src="{{movie.poster}}" alt="" width="7%" height="8%" />
+  <img *ngIf="! movie.poster"src="/favicon.ico" alt="" class="logo">
+</p>
+<p>
+  <label>Title:</label>
+  <input type="text" [(ngModel)]="movie.title" disabled>
+</p>
+<p>
+  <label>Plot:</label>
+  <textarea *ngIf="movie.fullplot" [(ngModel)]="movie.fullplot" cols="40" rows="10" disabled></textarea>
+  <textarea *ngIf="! movie.fullplot" [(ngModel)]="movie.plot" cols="40" rows="10" disabled></textarea>
+</p>
+<p>
+  <label>Released:</label>
+  <input type="text" value="{{dateFormat(movie.released)}}" disabled>
+</p>
+<p>
+  <label>Year:</label>
+  <input type="text" [(ngModel)]="movie.year" disabled>
+</p>

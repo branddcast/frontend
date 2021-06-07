@@ -1,0 +1,50 @@
+article {
+    display: flex;
+    border-bottom: 1px solid #ddd;
+    padding: 10px;
+    font-size: 0.9em;
+}
+span {
+    display: inline-block;
+    width: 22%;
+    margin-right: 2%;
+}
+/* img{
+    display: inline-block;
+    width: 5%;
+    height: 3%;
+    margin-right: 2%;
+}*/
+.logo{
+    height: 400px;
+    width: 200px;
+}
+
+.poster {
+    margin-top: 0px !important;
+    background-size: cover;
+}
+.example-card {
+    max-width: 250px;
+    height: 50%;
+    margin: 20px;
+}
+.example-header-image {
+    background-image: url('/favicon.ico');
+    background-size: cover;
+    background-color: black;
+}
+
+a {
+    text-decoration: none;
+    text-decoration-line: none;
+    color: rgb(36, 36, 36)
+}
+
+.container{
+    padding: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: center;
+}

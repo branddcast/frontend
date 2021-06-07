@@ -1,0 +1,18 @@
+.logo {
+    width: 3em;
+    background: #f2f2f2;
+    padding: 15px 16px;
+    border-radius: 100%;
+}
+
+input, textarea{
+    display: block;
+    margin-top: 10px;
+}
+
+input {
+    padding: 5px 15px;
+}
+textarea {
+    padding: 15px
+}
