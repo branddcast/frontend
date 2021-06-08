@@ -1,23 +1,45 @@
-#Primera Etapa
-FROM node:10-alpine as build-step
+FROM node:10-slim
 
-RUN mkdir -p /app
+USER root
+RUN npm install -g http-server
 
-WORKDIR /app
+USER node
+RUN mkdir -p /home/node/app /tmp/app
+WORKDIR /tmp/app
 
-COPY package.json /app
+COPY --chown=node . .
 
-RUN npm config set strict-ssl false
+ENV NODE_OPTIONS=--max-old-space-size=500
+RUN echo "NodeJS $(node -v) memory config:" && node -p "v8.getHeapStatistics()"
+RUN npm i
+RUN npm run build && mv www /home/node/app && rm -fr /tmp/app
 
-RUN npm config set registry http://registry.npmjs.org/
+WORKDIR /home/node/app
 
-RUN npm install
+EXPOSE 8080
 
-COPY . /app
+CMD [ "http-server", "www" ]
 
-RUN npm run build --prod
+##Primera Etapa
+# FROM node:10-alpine as build-step
 
-#Segunda Etapa
-FROM nginx:1.17.1-alpine
-	#Si estas utilizando otra aplicacion cambia PokeApp por el nombre de tu app
-COPY --from=build-step /app/dist/frontend /usr/share/nginx/html
+# RUN mkdir -p /app
+
+# WORKDIR /app
+
+# COPY package.json /app
+
+# RUN npm config set strict-ssl false
+
+# RUN npm config set registry http://registry.npmjs.org/
+
+# RUN npm install
+
+# COPY . /app
+
+# RUN npm run build --prod
+
+# #Segunda Etapa
+# FROM nginx:1.17.1-alpine
+# 	#Si estas utilizando otra aplicacion cambia PokeApp por el nombre de tu app
+# COPY --from=build-step /app/dist/frontend /usr/share/nginx/html
