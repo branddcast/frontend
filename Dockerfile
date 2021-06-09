@@ -50,7 +50,7 @@ RUN npm run build --prod
 #Segunda Etapa
 FROM nginx:1.17.1-alpine
 USER root
-RUN chmod -R 766 /etc/nginx
-RUN chmod -R 766 /var/cache/nginx
-RUN chmod -R 766 /etc/nginx/nginx.conf
+RUN chmod -R 755 /etc/nginx
+RUN chmod -R 755 /var/cache/nginx
+RUN chmod -R 755 /etc/nginx/nginx.conf
 COPY --from=build-step /app/dist/frontend /usr/share/nginx/html
