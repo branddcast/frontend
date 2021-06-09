@@ -21,7 +21,7 @@ export class MovieInputsComponent implements OnInit {
     this.moviesService.getById(this.paramID).subscribe(data => this.movie = data);
   }
 
-  dateFormat(date: string) {
+  dateFormat(date: any) {
     return new Date(date).toLocaleDateString();
   }
 
