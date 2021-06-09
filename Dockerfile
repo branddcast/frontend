@@ -37,6 +37,8 @@ WORKDIR /app
 
 COPY package.json /app
 
+ENV NODE_OPTIONS=--max-old-space-size=500 
+
 RUN npm config set strict-ssl false
 
 RUN npm config set registry http://registry.npmjs.org/
