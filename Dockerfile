@@ -29,7 +29,7 @@
 
 #------------------ DOCKER CONFIGURATION 2 ------------------ 
 #Primera Etapa
-FROM node:10-alpine as build-step
+FROM node:10-slim as build-step
 
 RUN mkdir -p /app
 
