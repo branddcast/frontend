@@ -1,4 +1,4 @@
-FROM node:10-alpine as build-step
+FROM node:10-slim as build-step
 
 USER root
 RUN npm install -g http-server
