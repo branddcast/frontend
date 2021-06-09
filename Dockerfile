@@ -37,7 +37,7 @@ WORKDIR /app
 
 COPY package.json /app
 
-ENV NODE_OPTIONS=--max-old-space-size=500 
+ENV NODE_OPTIONS=--max-old-space-size=900 
 
 RUN npm config set strict-ssl false
 
