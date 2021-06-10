@@ -29,7 +29,7 @@
 
 #------------------ DOCKER CONFIGURATION 2 ------------------ 
 #Primera Etapa
-FROM node:10-slim as build-step
+FROM node:10-alpine as build-step
 
 RUN mkdir -p /app
 
@@ -49,11 +49,13 @@ COPY . /app
 
 RUN npm run build --prod
 #RUN cp -r ./dist/frontend/. /usr/share/nginx/html
-COPY --from=build-step /app/dist/frontend /usr/share/nginx/html
 
 #Segunda Etapa
 FROM nginxinc/nginx-unprivileged
+
 USER root
-RUN echo $NODE_ENV
+
+COPY --from=build-step /app/dist/frontend /usr/share/nginx/html
+
 RUN chgrp -R root /var/cache/nginx /var/run /var/log/nginx && \
     chmod -R 770 /var/cache/nginx /var/run /var/log/nginx
