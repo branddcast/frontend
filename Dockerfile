@@ -28,43 +28,8 @@
 
 
 #------------------ DOCKER CONFIGURATION 2 ------------------ 
-# #Primera Etapa
-# FROM node:slim as build-step
-
-# RUN mkdir -p /app
-
-# WORKDIR /app
-
-# COPY package.json /app
-
-# #ENV NODE_OPTIONS=--max-old-space-size=900 
-
-# #RUN npm config set strict-ssl false
-
-# #RUN npm config set registry http://registry.npmjs.org/
-
-# RUN npm install
-
-# COPY . /app
-
-# RUN npm run build --prod
-# #RUN cp -r ./dist/frontend/. /usr/share/nginx/html
-
-# #Segunda Etapa
-# #FROM nginxinc/nginx-unprivileged
-# FROM nginx:1.17.1-alpine
-
-# USER root
-
-# COPY --from=build-step /app/dist/frontend /usr/share/nginx/html
-
-# # RUN chgrp -R root /var/cache/nginx /var/run /var/log/nginx && \
-# #     chmod -R 770 /var/cache/nginx /var/run /var/log/nginx
-
-
-#------------------ DOCKER CONFIGURATION 3 ------------------ 
 #Primera Etapa
-FROM quay.io/branddcast/nodejs as build-step
+FROM node:slim as build-step
 
 RUN mkdir -p /app
 
@@ -87,7 +52,7 @@ RUN npm run build --prod
 
 #Segunda Etapa
 #FROM nginxinc/nginx-unprivileged
-FROM quay.io/branddcast/nginx
+FROM nginx:1.17.1-alpine
 
 USER root
 
@@ -95,3 +60,38 @@ COPY --from=build-step /app/dist/frontend /usr/share/nginx/html
 
 # RUN chgrp -R root /var/cache/nginx /var/run /var/log/nginx && \
 #     chmod -R 770 /var/cache/nginx /var/run /var/log/nginx
+
+
+#------------------ DOCKER CONFIGURATION 3 ------------------ 
+# #Primera Etapa
+# FROM quay.io/branddcast/nodejs as build-step
+
+# RUN mkdir -p /app
+
+# WORKDIR /app
+
+# COPY package.json /app
+
+# #ENV NODE_OPTIONS=--max-old-space-size=900 
+
+# #RUN npm config set strict-ssl false
+
+# #RUN npm config set registry http://registry.npmjs.org/
+
+# RUN npm install
+
+# COPY . /app
+
+# RUN npm run build --prod
+# #RUN cp -r ./dist/frontend/. /usr/share/nginx/html
+
+# #Segunda Etapa
+# #FROM nginxinc/nginx-unprivileged
+# FROM quay.io/branddcast/nginx
+
+# USER root
+
+# COPY --from=build-step /app/dist/frontend /usr/share/nginx/html
+
+# # RUN chgrp -R root /var/cache/nginx /var/run /var/log/nginx && \
+# #     chmod -R 770 /var/cache/nginx /var/run /var/log/nginx
