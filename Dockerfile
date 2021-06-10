@@ -52,7 +52,7 @@ RUN npm run build
 
 #Segunda Etapa
 #FROM nginxinc/nginx-unprivileged
-FROM nginx:1.17.1-alpine
+FROM nginxinc/nginx-unprivileged
 
 USER root
 
