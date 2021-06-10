@@ -47,7 +47,7 @@ RUN npm install
 
 COPY . /app
 
-RUN npm run build --prod
+RUN npm run build
 #RUN cp -r ./dist/frontend/. /usr/share/nginx/html
 
 #Segunda Etapa
