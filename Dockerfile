@@ -37,6 +37,8 @@ WORKDIR /app
 
 COPY package.json /app
 
+RUN npm install -g npm@7.17.0
+
 #ENV NODE_OPTIONS=--max-old-space-size=900 
 
 #RUN npm config set strict-ssl false
