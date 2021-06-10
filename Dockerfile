@@ -52,7 +52,7 @@ RUN npm run build --prod
 COPY --from=build-step /app/dist/frontend /usr/share/nginx/html
 
 #Segunda Etapa
-FROM nginx:alpine
+FROM nginxinc/nginx-unprivileged
 USER root
 RUN echo $NODE_ENV
 RUN chgrp -R root /var/cache/nginx /var/run /var/log/nginx && \
