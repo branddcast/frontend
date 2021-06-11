@@ -1,66 +1,66 @@
 #------------------ DOCKER CONFIGURATION 1 ------------------ 
-FROM node:10-slim as build-step
+# FROM node:10-slim as build-step
 
-USER root
-RUN npm install -g http-server
+# USER root
+# RUN npm install -g http-server
 
-USER node
-RUN mkdir -p /home/node/app /tmp/app
-WORKDIR /tmp/app
+# USER node
+# RUN mkdir -p /home/node/app /tmp/app
+# WORKDIR /tmp/app
 
-COPY --chown=node . .
+# COPY --chown=node . .
 
-ENV NODE_OPTIONS=--max-old-space-size=900
-RUN echo "NodeJS $(node -v) memory config:" && node -p "v8.getHeapStatistics()"
-RUN npm i
+# ENV NODE_OPTIONS=--max-old-space-size=900
+# RUN echo "NodeJS $(node -v) memory config:" && node -p "v8.getHeapStatistics()"
+# RUN npm i
 
-RUN npm run build && mv dist/frontend /home/node/app && rm -fr /tmp/app
-#RUN npm run build && mv dist/frontend /home/node/app && rm -fr /tmp/app
+# RUN npm run build && mv dist/frontend /home/node/app && rm -fr /tmp/app
+# #RUN npm run build && mv dist/frontend /home/node/app && rm -fr /tmp/app
 
-#COPY --from=build-step /app/dist/frontend /home/node/app
+# #COPY --from=build-step /app/dist/frontend /home/node/app
 
-WORKDIR /home/node/app
+# WORKDIR /home/node/app
 
-EXPOSE 8080
+# EXPOSE 8080
 
-CMD [ "http-server", "dist/frontend" ]
+# CMD [ "http-server", "dist/frontend" ]
 
 
 #------------------ DOCKER CONFIGURATION 2 ------------------ 
-# #Primera Etapa
-# FROM node:slim as build-step
+#Primera Etapa
+FROM node:slim as build-step
 
-# RUN mkdir -p /app
+RUN mkdir -p /app
 
-# WORKDIR /app
+WORKDIR /app
 
-# COPY package.json /app
+COPY package.json /app
 
-# RUN npm install npm@7.17.0
+RUN npm install npm@7.17.0
 
-# #ENV NODE_OPTIONS=--max-old-space-size=900 
+#ENV NODE_OPTIONS=--max-old-space-size=900 
 
-# #RUN npm config set strict-ssl false
+#RUN npm config set strict-ssl false
 
-# #RUN npm config set registry http://registry.npmjs.org/
+#RUN npm config set registry http://registry.npmjs.org/
 
-# RUN npm install
+RUN npm install
 
-# COPY . /app
+COPY . /app
 
-# RUN npm run build
-# #RUN cp -r ./dist/frontend/. /usr/share/nginx/html
+RUN npm run build
+#RUN cp -r ./dist/frontend/. /usr/share/nginx/html
 
-# #Segunda Etapa
-# #FROM nginxinc/nginx-unprivileged
-# FROM nginxinc/nginx-unprivileged
+#Segunda Etapa
+#FROM nginxinc/nginx-unprivileged
+FROM nginxinc/nginx-unprivileged
 
-# USER root
+USER root
 
-# COPY --from=build-step /app/dist/frontend /usr/share/nginx/html
+COPY --from=build-step /app/dist/frontend /usr/share/nginx/html
 
-# # RUN chgrp -R root /var/cache/nginx /var/run /var/log/nginx && \
-# #     chmod -R 770 /var/cache/nginx /var/run /var/log/nginx
+# RUN chgrp -R root /var/cache/nginx /var/run /var/log/nginx && \
+#     chmod -R 770 /var/cache/nginx /var/run /var/log/nginx
 
 
 #------------------ DOCKER CONFIGURATION 3 ------------------ 
